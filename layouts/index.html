@@ -1,0 +1,99 @@
+{{ define "main" }}
+<!-- Master View Grid Map Layer Container -->
+<div class="portal-master-grid" style="display: grid; grid-template-columns: 240px 1fr 300px; gap: 30px; margin: 20px auto 50px auto; align-items: start; width: 100%; box-sizing: border-box;">
+    
+    <!-- ================= COLUMN 1: LEFT BANNER ADS ZONE ================= -->
+    <aside class="left-ad-rail" style="position: sticky; top: 20px; width: 100%; box-sizing: border-box;">
+        <div style="background: rgba(128,128,128,0.06); border: 2px dashed var(--border); padding: 35px 10px; text-align: center; border-radius: 8px; min-height: 600px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+            <span style="font-weight: bold; color: var(--secondary); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;">💻 SPONSORED BANNER</span>
+            <span style="font-size: 11px; color: var(--secondary); margin-top: 8px; opacity: 0.65; line-height: 1.4;">[Left Vertical Ad Rail Pillar]<br>Activates instantly upon AdSense verification approval</span>
+        </div>
+    </aside>
+
+    <!-- ================= COLUMN 2: CENTER CATEGORIES POST FEED ================= -->
+    <main class="center-content-feed" style="width: 100%; box-sizing: border-box;">
+        <!-- Static array definition matching all your requested navigation tab sections -->
+        {{ $categories := slice "current-affairs" "technology" "science" "finance" "social-studies" }}
+        
+        {{ range $categories }}
+            {{ $term := site.GetPage (printf "/categories/%s" .) }}
+            {{ if $term }}
+            <section style="margin-bottom: 45px; background: var(--entry); padding: 25px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.02); box-sizing: border-box;">
+                
+                <!-- Section Categorized Header Bar Row -->
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 22px;">
+                    <h2 style="margin: 0; text-transform: uppercase; font-size: 17px; color: var(--primary); letter-spacing: 0.7px; font-weight: 700;">
+                        {{ $term.Title }}
+                    </h2>
+                </div>
+                
+                <!-- Article Collection Block: Displays exactly the 5 latest articles -->
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    {{ range first 5 $term.Pages }}
+                    <article style="border-bottom: 1px solid var(--border); padding-bottom: 14px; margin-bottom: 4px; box-sizing: border-box;">
+                        <h3 style="margin: 0 0 6px 0; font-size: 18px; line-height: 1.35;">
+                            <a href="{{ .Permalink }}" style="color: var(--primary); text-decoration: none; font-weight: 600; transition: color 0.1s;">{{ .Title }}</a>
+                        </h3>
+                        <p style="margin: 0; font-size: 13.5px; color: var(--secondary); line-height: 1.45; opacity: 0.85;">
+                            {{ .Summary | truncate 150 }}
+                        </p>
+                        <!-- Integrated Reading Metadata Indicators -->
+                        <div style="font-size: 11px; color: var(--secondary); margin-top: 6px; opacity: 0.6;">
+                            ⏱️ {{ .ReadingTime }} min read · {{ .Date.Format "January 2, 2006" }}
+                        </div>
+                    </article>
+                    {{ else }}
+                    <p style="font-size: 13px; color: var(--secondary); font-style: italic; opacity: 0.65;">No daily analysis published inside this section yet.</p>
+                    {{ end }}
+                </div>
+
+                <!-- View More Button Trigger: Visible only if category holds more than 5 elements -->
+                {{ if gt (len $term.Pages) 5 }}
+                <div style="text-align: right; margin-top: 18px;">
+                    <a href="{{ $term.Permalink }}" style="background: var(--primary); color: var(--theme); padding: 7px 16px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; transition: opacity 0.1s;">View All {{ $term.Title }} Posts →</a>
+                </div>
+                {{ end }}
+
+            </section>
+            {{ end }}
+        {{ end }}
+    </main>
+
+    <!-- ================= COLUMN 3: RIGHT TRENDING & REVENUE RAILS ================= -->
+    <aside class="right-sidebar-rail" style="display: flex; flex-direction: column; gap: 30px; position: sticky; top: 20px; width: 100%; box-sizing: border-box;">
+        
+        <!-- Widget Element 1: Dynamic Hot Trending Stream -->
+        <div style="background: var(--entry); border: 1px solid var(--border); padding: 22px; border-radius: 8px; box-sizing: border-box;">
+            <h4 style="margin: 0 0 16px 0; border-bottom: 2px solid #FF5722; padding-bottom: 6px; font-size: 13px; text-transform: uppercase; color: var(--primary); font-weight: bold; letter-spacing: 0.5px;">🔥 Trending Topics</h4>
+            <ul style="padding: 0; margin: 0; list-style: none;">
+                <!-- Pulls the 4 newest absolute updates posted site-wide -->
+                {{ range first 4 site.RegularPages }}
+                <li style="margin-bottom: 12px; font-size: 13px; line-height: 1.4; border-bottom: 1px dashed var(--border); padding-bottom: 10px; box-sizing: border-box;">
+                    <a href="{{ .Permalink }}" style="text-decoration: none; color: var(--primary); font-weight: 500;">{{ .Title }}</a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+
+        <!-- Widget Element 2: Secondary Responsive Income Slot -->
+        <div style="background: rgba(128,128,128,0.06); border: 2px dashed #ccc; padding: 25px 10px; text-align: center; border-radius: 8px; min-height: 280px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+            <span style="font-weight: bold; color: var(--secondary); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;">📢 NATIVE MID-RAIL AD</span>
+            <span style="font-size: 10px; color: var(--secondary); margin-top: 5px; opacity: 0.6; line-height: 1.3;">Square Content Ad Placeholder Unit</span>
+        </div>
+
+    </aside>
+
+</div>
+
+<!-- Global Micro-Media Query Block to keep the portal grid safe and responsive on smartphones -->
+<style>
+    @media screen and (max-width: 1024px) {
+        .portal-master-grid { grid-template-columns: 1fr 300px !important; }
+        .left-ad-rail { display: none !important; }
+    }
+    @media screen and (max-width: 768px) {
+        .portal-master-grid { grid-template-columns: 1fr !important; }
+        .right-sidebar-rail { display: none !important; }
+    }
+</style>
+{{ end }}
