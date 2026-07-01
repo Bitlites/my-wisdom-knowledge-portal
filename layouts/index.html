@@ -2,7 +2,7 @@
 <!-- Master View Grid Map Layer Container -->
 <div class="portal-master-grid" style="display: grid; grid-template-columns: 240px 1fr 300px; gap: 30px; margin: 20px auto 50px auto; align-items: start; width: 100%; box-sizing: border-box;">
     
-    <!-- ================= COLUMN 1: LEFT BANNER ADS ZONE ================= -->
+    <!-- ================= COLUMN 1: LEFT BANNER ADS ZONE (Collapses on Tablet/Mobile) ================= -->
     <aside class="left-ad-rail" style="position: sticky; top: 20px; width: 100%; box-sizing: border-box;">
         <div style="background: rgba(128,128,128,0.06); border: 2px dashed var(--border); padding: 35px 10px; text-align: center; border-radius: 8px; min-height: 600px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
             <span style="font-weight: bold; color: var(--secondary); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;">💻 SPONSORED BANNER</span>
@@ -12,7 +12,8 @@
 
     <!-- ================= COLUMN 2: CENTER CATEGORIES POST FEED ================= -->
     <main class="center-content-feed" style="width: 100%; box-sizing: border-box;">
-        <!-- Static array definition matching all your requested navigation tab sections -->
+        
+        <!-- Loop directly through each specific category with its dedicated visual anchor icon -->
         {{ $categories := slice "current-affairs" "technology" "science" "finance" "social-studies" }}
         
         {{ range $categories }}
@@ -22,7 +23,14 @@
                 
                 <!-- Section Categorized Header Bar Row -->
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 22px;">
-                    <h2 style="margin: 0; text-transform: uppercase; font-size: 17px; color: var(--primary); letter-spacing: 0.7px; font-weight: 700;">
+                    <h2 style="margin: 0; text-transform: uppercase; font-size: 17px; color: var(--primary); letter-spacing: 0.7px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                        <!-- Match the exact category slug to its relevant identifier icon symbol -->
+                        {{ if eq . "current-affairs" }}📰
+                        {{ else if eq . "technology" }}🚀
+                        {{ else if eq . "science" }}🔬
+                        {{ else if eq . "finance" }}💼
+                        {{ else if eq . "social-studies" }}📚
+                        {{ end }}
                         {{ $term.Title }}
                     </h2>
                 </div>
@@ -47,7 +55,7 @@
                     {{ end }}
                 </div>
 
-                <!-- View More Button Trigger: Visible only if category holds more than 5 elements -->
+                <!-- View More Button Trigger -->
                 {{ if gt (len $term.Pages) 5 }}
                 <div style="text-align: right; margin-top: 18px;">
                     <a href="{{ $term.Permalink }}" style="background: var(--primary); color: var(--theme); padding: 7px 16px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; transition: opacity 0.1s;">View All {{ $term.Title }} Posts →</a>
@@ -66,7 +74,6 @@
         <div style="background: var(--entry); border: 1px solid var(--border); padding: 22px; border-radius: 8px; box-sizing: border-box;">
             <h4 style="margin: 0 0 16px 0; border-bottom: 2px solid #FF5722; padding-bottom: 6px; font-size: 13px; text-transform: uppercase; color: var(--primary); font-weight: bold; letter-spacing: 0.5px;">🔥 Trending Topics</h4>
             <ul style="padding: 0; margin: 0; list-style: none;">
-                <!-- Pulls the 4 newest absolute updates posted site-wide -->
                 {{ range first 4 site.RegularPages }}
                 <li style="margin-bottom: 12px; font-size: 13px; line-height: 1.4; border-bottom: 1px dashed var(--border); padding-bottom: 10px; box-sizing: border-box;">
                     <a href="{{ .Permalink }}" style="text-decoration: none; color: var(--primary); font-weight: 500;">{{ .Title }}</a>
@@ -85,15 +92,17 @@
 
 </div>
 
-<!-- Global Micro-Media Query Block to keep the portal grid safe and responsive on smartphones -->
+<!-- Global Responsive Style Block: Hides ONLY the left column on tablets and smartphones -->
 <style>
     @media screen and (max-width: 1024px) {
-        .portal-master-grid { grid-template-columns: 1fr 300px !important; }
+        .portal-master-grid { grid-template-columns: 1fr 280px !important; gap: 20px !important; }
         .left-ad-rail { display: none !important; }
     }
     @media screen and (max-width: 768px) {
-        .portal-master-grid { grid-template-columns: 1fr !important; }
-        .right-sidebar-rail { display: none !important; }
+        /* On narrow mobile views, columns stack fluidly so center content and side widgets remain visible */
+        .portal-master-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
+        .left-ad-rail { display: none !important; }
+        .right-sidebar-rail { position: static !important; }
     }
 </style>
 {{ end }}
