@@ -5,7 +5,7 @@ title = 'Global News Hub'
 [params]
     env = 'production'
     title = 'Global News Hub'
-    description = 'Daily insights on Current Affairs, Tech, Science, and Finance.'
+    description = 'Daily insights on Current Affairs, Technology, Science, and Finance.'
     
     # Structural clean ups
     ShowToc = true
