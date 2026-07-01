@@ -1,29 +1,22 @@
-baseURL = 'https://my-wisdom-knowledge-portal.bitlitesolutions.workers.dev'
+baseURL = 'https://yourdomain.com'
 languageCode = 'en-us'
 title = 'Global News Hub'
+
+[outputs]
+    home = ["HTML", "RSS", "JSON"] # Crucial: Generates the search database file automatically
 
 [params]
     env = 'production'
     title = 'Global News Hub'
-    description = 'Daily insights on Current Affairs, Technology, Science, and Finance.'
+    description = 'Daily insights on Current Affairs, Tech, Science, and Finance.'
     
-    # Structural clean ups
-    ShowToc = true
-    TocOpen = false
-    ShowReadingTime = true
-    ShowShareButtons = true
-    ShowPostNavLinks = true
-    ShowBreadCrumbs = true
+    # Theme configuration
     hideFooter = false
     hideCopyright = true
+    ShowToc = true
+    ShowReadingTime = true
 
-    [params.socialLinks]
-        x = "https://x.com"
-        facebook = "https://facebook.com"
-        instagram = "https://instagram.com"
-        youtube = "https://youtube.com"
-
-# --- HEADER NAVIGATION MENU (Exact Ordered List) ---
+# --- FIXED HEADER MENU ORDER WITH SEARCH ICON FUNCTIONALITY ---
 [[menu.main]]
     name = 'Home'
     url = '/'
@@ -64,15 +57,9 @@ title = 'Global News Hub'
     url = '/contact-us/'
     weight = 80
 
-# --- FOOTER LEGAL MENU (For Ad Acceptance) ---
-[[menu.footer]]
-    name = 'Privacy Policy'
-    url = '/privacy-policy/'
-    weight = 10
-
-[[menu.footer]]
-    name = 'Terms and Conditions'
-    url = '/terms-and-conditions/'
-    weight = 20
+[[menu.main]]
+    name = '🔍 Search'
+    url = '/search/'
+    weight = 90
 
 layoutDir = 'layouts'
