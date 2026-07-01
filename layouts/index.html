@@ -75,7 +75,8 @@
         <div style="background: var(--entry); border: 1px solid var(--border); padding: 22px; border-radius: 8px; box-sizing: border-box;">
             <h4 style="margin: 0 0 16px 0; border-bottom: 2px solid #FF5722; padding-bottom: 6px; font-size: 13px; text-transform: uppercase; color: var(--primary); font-weight: bold; letter-spacing: 0.5px;">🔥 Trending Topics</h4>
             <ul style="padding: 0; margin: 0; list-style: none;">
-                {{ range first 4 site.RegularPages }}
+                <!-- FIXED: Filter explicitly for "posts" section to block static pages -->
+                {{ range first 5 (where site.RegularPages "Type" "posts") }}
                 <li style="margin-bottom: 12px; font-size: 13px; line-height: 1.4; border-bottom: 1px dashed var(--border); padding-bottom: 10px; box-sizing: border-box;">
                     <a href="{{ .Permalink }}" style="text-decoration: none; color: var(--primary); font-weight: 500;">{{ .Title }}</a>
                 </li>
