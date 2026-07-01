@@ -1,3 +1,29 @@
-{{- define "main" }}
-<div class="not-found">404</div>
-{{- end }}{{/* end main */ -}}
+{{ define "main" }}
+<!-- Custom 404 Center Portal Wrapper Box -->
+<div style="max-width: 800px; margin: 80px auto; padding: 40px 20px; text-align: center; font-family: sans-serif; box-sizing: border-box;">
+    
+    <!-- Large Graphical Visual Error Text Indicator -->
+    <h1 style="font-size: 120px; font-weight: 800; color: var(--primary); margin: 0; line-height: 1; letter-spacing: -2px;">404</h1>
+    
+    <!-- Clean Sub-Header Title Notice -->
+    <h2 style="font-size: 24px; font-weight: 700; color: var(--primary); margin: 15px 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+        Page Can't Be Found
+    </h2>
+    
+    <!-- Detailed Explanatory Reader Body Text -->
+    <p style="font-size: 15px; color: var(--secondary); max-width: 500px; margin: 0 auto 30px auto; line-height: 1.5; opacity: 0.85;">
+        The publication you are searching for might have been moved, updated, or our editorial desk is currently preparing its category data structure.
+    </p>
+    
+    <!-- Navigation Recovery Control Buttons Row -->
+    <div style="display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;">
+        <a href="/" style="background: var(--primary); color: var(--theme); padding: 10px 20px; text-decoration: none; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            🏡 Return Home
+        </a>
+        <a href="/search/" style="background: var(--entry); color: var(--primary); border: 1px solid var(--border); padding: 10px 20px; text-decoration: none; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">
+            🔍 Search Portal
+        </a>
+    </div>
+
+</div>
+{{ end }}
