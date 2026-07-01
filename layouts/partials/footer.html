@@ -1,8 +1,47 @@
-<footer class="footer">
-    <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ .Site.Title }}</a></span>
-    <span style="margin-left: 20px;">
-        {{ range .Site.Menus.footer }}
-        <a href="{{ .URL | relURL }}" style="margin-right: 15px; text-decoration: none; color: inherit; font-size: 14px;">{{ .Name }}</a>
-        {{ end }}
-    </span>
+<footer class="footer" style="padding: 40px 20px; background-color: var(--theme); border-top: 1px solid var(--border); font-size: 14px; line-height: 1.6; display: block; width: 100%;">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: left;">
+        
+        <!-- Column 1: Website Summary -->
+        <div>
+            <h3 style="margin-bottom: 15px; color: var(--primary);">{{ .Site.Title }}</h3>
+            <p style="color: var(--secondary); font-size: 13px;">Your daily hub for accurate news, scientific innovations, global history updates, and economic market reviews.</p>
+        </div>
+
+        <!-- Column 2: Portal Categories -->
+        <div>
+            <h4 style="margin-bottom: 15px; color: var(--primary);">Categories</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 8px;"><a href="/categories/current-affairs/" style="color: var(--secondary); text-decoration: none;">Current Affairs</a></li>
+                <li style="margin-bottom: 8px;"><a href="/categories/technology/" style="color: var(--secondary); text-decoration: none;">Technology</a></li>
+                <li style="margin-bottom: 8px;"><a href="/categories/science/" style="color: var(--secondary); text-decoration: none;">Science</a></li>
+                <li style="margin-bottom: 8px;"><a href="/categories/finance/" style="color: var(--secondary); text-decoration: none;">Finance</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 3: Social Profiles -->
+        <div>
+            <h4 style="margin-bottom: 15px; color: var(--primary);">Follow Us</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                {{ with .Site.Params.socialLinks.x }}<li style="margin-bottom: 8px;"><a href="{{ . }}" target="_blank" rel="noopener noreferrer" style="color: var(--secondary); text-decoration: none;">X (Twitter)</a></li>{{ end }}
+                {{ with .Site.Params.socialLinks.facebook }}<li style="margin-bottom: 8px;"><a href="{{ . }}" target="_blank" rel="noopener noreferrer" style="color: var(--secondary); text-decoration: none;">Facebook</a></li>{{ end }}
+                {{ with .Site.Params.socialLinks.instagram }}<li style="margin-bottom: 8px;"><a href="{{ . }}" target="_blank" rel="noopener noreferrer" style="color: var(--secondary); text-decoration: none;">Instagram</a></li>{{ end }}
+            </ul>
+        </div>
+
+        <!-- Column 4: Legal Information -->
+        <div>
+            <h4 style="margin-bottom: 15px; color: var(--primary);">Legal</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                {{ range .Site.Menus.footer }}
+                <li style="margin-bottom: 8px;"><a href="{{ .URL | relURL }}" style="color: var(--secondary); text-decoration: none;">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Bottom Copyright Strip -->
+    <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; color: var(--secondary); font-size: 12px;">
+        <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}" style="color: inherit; text-decoration: none; font-weight: bold;">{{ .Site.Title }}</a>. All Rights Reserved.</span>
+    </div>
 </footer>
