@@ -18,52 +18,53 @@
         
         {{ range $categories }}
             {{ $term := site.GetPage (printf "/categories/%s" .) }}
-            {{ if $term }}
+            
+            <!-- Clean UI Block Header mapping out names and emojis -->
             <section style="margin-bottom: 45px; background: var(--entry); padding: 25px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.02); box-sizing: border-box;">
                 
-                <!-- Section Categorized Header Bar Row -->
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 22px;">
                     <h2 style="margin: 0; text-transform: uppercase; font-size: 17px; color: var(--primary); letter-spacing: 0.7px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-                        <!-- Match the exact category slug to its relevant identifier icon symbol -->
                         {{ if eq . "current-affairs" }}📰
                         {{ else if eq . "technology" }}🚀
                         {{ else if eq . "science" }}🔬
                         {{ else if eq . "finance" }}💼
                         {{ else if eq . "social-studies" }}📚
                         {{ end }}
-                        {{ $term.Title }}
+                        
+                        <!-- Fallback formatting if the category page doesn't exist yet -->
+                        {{ if $term }}{{ $term.Title }}{{ else }}{{ humanize . }}{{ end }}
                     </h2>
+                    
+                    {{ if $term }}
+                        <a href="{{ $term.Permalink }}" style="background: var(--primary); color: var(--theme); padding: 5px 12px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase;">View More →</a>
+                    {{ end }}
                 </div>
                 
-                <!-- Article Collection Block: Displays exactly the 5 latest articles -->
+                <!-- SAFETY CHECK: Look if the category has articles -->
                 <div style="display: flex; flex-direction: column; gap: 16px;">
-                    {{ range first 5 $term.Pages }}
-                    <article style="border-bottom: 1px solid var(--border); padding-bottom: 14px; margin-bottom: 4px; box-sizing: border-box;">
-                        <h3 style="margin: 0 0 6px 0; font-size: 18px; line-height: 1.35;">
-                            <a href="{{ .Permalink }}" style="color: var(--primary); text-decoration: none; font-weight: 600; transition: color 0.1s;">{{ .Title }}</a>
-                        </h3>
-                        <p style="margin: 0; font-size: 13.5px; color: var(--secondary); line-height: 1.45; opacity: 0.85;">
-                            {{ .Summary | truncate 150 }}
-                        </p>
-                        <!-- Integrated Reading Metadata Indicators -->
-                        <div style="font-size: 11px; color: var(--secondary); margin-top: 6px; opacity: 0.6;">
-                            ⏱️ {{ .ReadingTime }} min read · {{ .Date.Format "January 2, 2006" }}
-                        </div>
-                    </article>
+                    {{ if $term }}
+                        {{ range first 5 $term.Pages }}
+                        <article style="border-bottom: 1px solid var(--border); padding-bottom: 14px; margin-bottom: 4px; box-sizing: border-box;">
+                            <h3 style="margin: 0 0 6px 0; font-size: 18px; line-height: 1.35;">
+                                <a href="{{ .Permalink }}" style="color: var(--primary); text-decoration: none; font-weight: 600;">{{ .Title }}</a>
+                            </h3>
+                            <p style="margin: 0; font-size: 13.5px; color: var(--secondary); line-height: 1.45; opacity: 0.85;">
+                                {{ .Summary | truncate 150 }}
+                            </p>
+                            <div style="font-size: 11px; color: var(--secondary); margin-top: 6px; opacity: 0.6;">
+                                ⏱️ {{ .ReadingTime }} min read · {{ .Date.Format "January 2, 2006" }}
+                            </div>
+                        </article>
+                        {{ else }}
+                        <p style="font-size: 13.5px; color: var(--secondary); font-style: italic; opacity: 0.75; padding: 10px 0;">✨ Coming Soon: Our editorial desk is preparing daily analysis for this section.</p>
+                        {{ end }}
                     {{ else }}
-                    <p style="font-size: 13px; color: var(--secondary); font-style: italic; opacity: 0.65;">No daily analysis published inside this section yet.</p>
+                        <!-- Safe fallback display if the category is 100% empty and has no folders yet -->
+                        <p style="font-size: 13.5px; color: var(--secondary); font-style: italic; opacity: 0.75; padding: 10px 0;">✨ Coming Soon: Our editorial desk is preparing daily analysis for this section.</p>
                     {{ end }}
                 </div>
 
-                <!-- View More Button Trigger -->
-                {{ if gt (len $term.Pages) 5 }}
-                <div style="text-align: right; margin-top: 18px;">
-                    <a href="{{ $term.Permalink }}" style="background: var(--primary); color: var(--theme); padding: 7px 16px; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; transition: opacity 0.1s;">View All {{ $term.Title }} Posts →</a>
-                </div>
-                {{ end }}
-
             </section>
-            {{ end }}
         {{ end }}
     </main>
 
@@ -78,6 +79,8 @@
                 <li style="margin-bottom: 12px; font-size: 13px; line-height: 1.4; border-bottom: 1px dashed var(--border); padding-bottom: 10px; box-sizing: border-box;">
                     <a href="{{ .Permalink }}" style="text-decoration: none; color: var(--primary); font-weight: 500;">{{ .Title }}</a>
                 </li>
+                {{ else }}
+                <li style="font-size: 13px; color: var(--secondary); font-style: italic;">Fresh daily trends compiling...</li>
                 {{ end }}
             </ul>
         </div>
@@ -99,7 +102,6 @@
         .left-ad-rail { display: none !important; }
     }
     @media screen and (max-width: 768px) {
-        /* On narrow mobile views, columns stack fluidly so center content and side widgets remain visible */
         .portal-master-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
         .left-ad-rail { display: none !important; }
         .right-sidebar-rail { position: static !important; }
