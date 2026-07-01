@@ -1,7 +1,6 @@
 baseURL = 'https://yourdomain.com'
 languageCode = 'en-us'
 title = 'Global News Hub'
-theme = 'PaperMod'
 
 [params]
     env = 'production'
