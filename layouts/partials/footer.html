@@ -1,0 +1,8 @@
+<footer class="footer">
+    <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ .Site.Title }}</a></span>
+    <span style="margin-left: 20px;">
+        {{ range .Site.Menus.footer }}
+        <a href="{{ .URL | relURL }}" style="margin-right: 15px; text-decoration: none; color: inherit;">{{ .Name }}</a>
+        {{ end }}
+    </span>
+</footer>
