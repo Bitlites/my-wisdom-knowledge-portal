@@ -1,31 +1,53 @@
 {{- if not (.Param "hideFooter") }}
-<footer class="footer">
-    {{- if not site.Params.footer.hideCopyright }}
-        {{- if site.Copyright }}
-        <span>{{ site.Copyright | markdownify }}</span>
-        {{- else }}
-        <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ site.Title }}</a></span>
-        {{- end }}
-        {{- print " · "}}
-    {{- end }}
+<footer class="footer" style="padding: 40px 20px; background-color: var(--theme); border-top: 1px solid var(--border); font-size: 14px; line-height: 1.6; display: block; width: 100%;">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; text-align: left;">
+        
+        <!-- Column 1: Website Summary -->
+        <div>
+            <h3 style="margin-bottom: 12px; color: var(--primary); font-size: 16px;">{{ site.Title }}</h3>
+            <p style="color: var(--secondary); font-size: 13px; margin: 0; line-height: 1.4;">Your daily hub for accurate news, scientific innovations, global history updates, and economic market reviews.</p>
+        </div>
 
-    {{- with site.Params.footer.text }}
-        {{ . | markdownify }}
-        {{- print " · "}}
-    {{- end }}
+        <!-- Column 2: Portal Categories Links (Updated) -->
+        <div>
+            <h4 style="margin-bottom: 12px; color: var(--primary); font-size: 14px; text-transform: uppercase;">Categories</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 6px;"><a href="/categories/current-affairs/" style="color: var(--secondary); text-decoration: none;">Current Affairs</a></li>
+                <li style="margin-bottom: 6px;"><a href="/categories/technology/" style="color: var(--secondary); text-decoration: none;">Technology</a></li>
+                <li style="margin-bottom: 6px;"><a href="/categories/science/" style="color: var(--secondary); text-decoration: none;">Science</a></li>
+                <li style="margin-bottom: 6px;"><a href="/categories/finance/" style="color: var(--secondary); text-decoration: none;">Finance</a></li>
+                <li style="margin-bottom: 6px;"><a href="/categories/social-studies/" style="color: var(--secondary); text-decoration: none;">Social Studies</a></li>
+            </ul>
+        </div>
 
-    {{/*
-        - The "Powered by Hugo" text is intentionally left at the end of the footer to give it more prominence.
-        - We kindly encourage you to keep this line. Keeping this credit helps open source projects like PaperMod and Hugo reach more people, supports the open source ecosystem, and shows appreciation for the work that goes into these tools.
-        - If you choose to remove it, please consider adding a link to the PaperMod GitHub repository somewhere on your site to give credit to the project and its contributors.
-        - Support us by sponsoring the project on GitHub Sponsors: https://github.com/sponsors/adityatelange
-    */}}
-    
-    <span>
-        Powered by
-        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
+        <!-- Column 3: Social Profiles External Links (Updated) -->
+        <div>
+            <h4 style="margin-bottom: 12px; color: var(--primary); font-size: 14px; text-transform: uppercase;">Follow Us</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 6px;"><a href="https://x.com" target="_blank" rel="noopener noreferrer" style="color: var(--secondary); text-decoration: none;">X (Twitter)</a></li>
+                <li style="margin-bottom: 6px;"><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style="color: var(--secondary); text-decoration: none;">Facebook</a></li>
+                <li style="margin-bottom: 6px;"><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style="color: var(--secondary); text-decoration: none;">Instagram</a></li>
+                <li style="margin-bottom: 6px;"><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" style="color: var(--secondary); text-decoration: none;">YouTube</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 4: Legal & Policy Compliance Links (Updated) -->
+        <div>
+            <h4 style="margin-bottom: 12px; color: var(--primary); font-size: 14px; text-transform: uppercase;">Legal & Info</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 6px;"><a href="/privacy-policy/" style="color: var(--secondary); text-decoration: none;">Privacy Policy</a></li>
+                <li style="margin-bottom: 6px;"><a href="/terms-and-conditions/" style="color: var(--secondary); text-decoration: none;">Terms & Conditions</a></li>
+                <li style="margin-bottom: 6px;"><a href="/about-us/" style="color: var(--secondary); text-decoration: none;">About Us</a></li>
+                <li style="margin-bottom: 6px;"><a href="/contact-us/" style="color: var(--secondary); text-decoration: none;">Contact Us</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Bottom Explicit Copyright Panel -->
+    <div style="max-width: 1200px; margin: 25px auto 0 auto; padding-top: 15px; border-top: 1px solid var(--border); text-align: center; color: var(--secondary); font-size: 12px;">
+        <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}" style="color: inherit; text-decoration: none; font-weight: bold;">{{ site.Title }}</a>. All Rights Reserved.</span>
+    </div>
 </footer>
 {{- end }}
 
