@@ -74,3 +74,5 @@ title = 'Global News Hub'
     name = 'Terms and Conditions'
     url = '/terms-and-conditions/'
     weight = 20
+
+layoutDir = 'layouts'
