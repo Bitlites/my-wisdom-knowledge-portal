@@ -14,6 +14,8 @@ title = 'Global News Hub'
     ShowShareButtons = true
     ShowPostNavLinks = true
     ShowBreadCrumbs = true
+    hideFooter = true
+    disableFootnoteMarkdown = true
 
 # --- HEADER NAVIGATION MENU (Exact Ordered List) ---
 [[menu.main]]
