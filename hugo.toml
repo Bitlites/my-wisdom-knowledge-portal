@@ -14,6 +14,14 @@ title = 'Global News Hub'
     ShowShareButtons = true
     ShowPostNavLinks = true
     ShowBreadCrumbs = true
+    hideFooter = false
+    hideCopyright = true
+
+    [params.socialLinks]
+        x = "https://x.com"
+        facebook = "https://facebook.com"
+        instagram = "https://instagram.com"
+        youtube = "https://youtube.com"
 
 # --- HEADER NAVIGATION MENU (Exact Ordered List) ---
 [[menu.main]]
