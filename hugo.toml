@@ -1,0 +1,69 @@
+baseURL = 'https://yourdomain.com'
+languageCode = 'en-us'
+title = 'Global News Hub'
+theme = 'PaperMod'
+
+[params]
+    env = 'production'
+    title = 'Global News Hub'
+    description = 'Daily insights on Current Affairs, Tech, Science, and Finance.'
+    
+    # Structural clean ups
+    ShowToc = true
+    TocOpen = false
+    ShowReadingTime = true
+    ShowShareButtons = true
+    ShowPostNavLinks = true
+    ShowBreadCrumbs = true
+
+# --- HEADER NAVIGATION MENU (Exact Ordered List) ---
+[[menu.main]]
+    name = 'Home'
+    url = '/'
+    weight = 10
+
+[[menu.main]]
+    name = 'CurrentAffairs'
+    url = '/categories/current-affairs/'
+    weight = 20
+
+[[menu.main]]
+    name = 'Technology'
+    url = '/categories/technology/'
+    weight = 30
+
+[[menu.main]]
+    name = 'Science'
+    url = '/categories/science/'
+    weight = 40
+
+[[menu.main]]
+    name = 'Finance'
+    url = '/categories/finance/'
+    weight = 50
+
+[[menu.main]]
+    name = 'Social Studies'
+    url = '/categories/social-studies/'
+    weight = 60
+
+[[menu.main]]
+    name = 'About Us'
+    url = '/about-us/'
+    weight = 70
+
+[[menu.main]]
+    name = 'Contact Us'
+    url = '/contact-us/'
+    weight = 80
+
+# --- FOOTER LEGAL MENU (For Ad Acceptance) ---
+[[menu.footer]]
+    name = 'Privacy Policy'
+    url = '/privacy-policy/'
+    weight = 10
+
+[[menu.footer]]
+    name = 'Terms and Conditions'
+    url = '/terms-and-conditions/'
+    weight = 20
