@@ -14,7 +14,11 @@ title = 'Global News Hub'
     hideFooter = false
     hideCopyright = true
     ShowToc = true
+    TocOpen = false
     ShowReadingTime = true
+    ShowShareButtons = true
+    ShowPostNavLinks = true
+    ShowBreadCrumbs = true
 
 # --- FIXED HEADER MENU ORDER WITH SEARCH ICON FUNCTIONALITY ---
 [[menu.main]]
