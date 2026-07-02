@@ -3,6 +3,7 @@ title: "Terms and Conditions"
 layout: "single"
 summary: "Terms"
 searchHidden: true
+hidemeta: true
 ShowShareButtons: false
 ---
 

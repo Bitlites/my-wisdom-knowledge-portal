@@ -3,6 +3,7 @@ title: "Privacy Policy"
 layout: "single"
 summary: "Privacy"
 searchHidden: true
+hidemeta: true
 ShowShareButtons: false
 ---
 
