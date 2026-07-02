@@ -19,9 +19,9 @@
                 <a href="/" style="color: inherit; text-decoration: none;">Home</a> &gt; Articles
             </div>
 
-            <!-- Main Article Title -->
-            <header class="post-header" style="margin-bottom: 25px;">
-                <h1 class="post-title" style="margin: 0 0 10px 0; font-size: 32px; line-height: 1.25; color: var(--primary); font-weight: 800; border: none; padding: 0;">
+            <!-- Main Article Title with Strategic Bottom Margin Padding -->
+            <header class="post-header" style="margin-bottom: 35px; padding-bottom: 10px;">
+                <h1 class="post-title" style="margin: 0 0 15px 0; font-size: 32px; line-height: 1.25; color: var(--primary); font-weight: 800; border: none; padding: 0;">
                     {{ .Title }}
                 </h1>
                 <div style="font-size: 12px; color: var(--secondary); opacity: 0.7;">
@@ -31,7 +31,7 @@
 
             <!-- Interactive Table of Contents Menu -->
             {{- if (.Param "ShowToc") }}
-            <div style="background: var(--theme); border: 1px solid var(--border); border-radius: 6px; padding: 15px; margin-bottom: 30px;">
+            <div style="background: var(--theme); border: 1px solid var(--border); border-radius: 6px; padding: 15px; margin-bottom: 35px;">
                 <details open>
                     <summary style="font-weight: bold; cursor: pointer; color: var(--primary);">Table of Contents</summary>
                     <div style="margin-top: 10px; font-size: 14px; line-height: 1.5;">
@@ -42,7 +42,7 @@
             {{- end }}
 
             <!-- Native Article Body Output -->
-            <div class="post-content" style="line-height: 1.7; font-size: 16px; color: var(--primary);">
+            <div class="post-content" style="line-height: 1.7; font-size: 16px; color: var(--primary); margin-top: 20px;">
                 {{ .Content }}
             </div>
 
@@ -84,20 +84,22 @@
             </ul>
         </div>
 
-        <!-- Widget 2: Dynamic Category-Specific Contextual Recommendations -->
+        <!-- Widget 2: Fixed Category Recommendations Section (Loads latest 5 articles) -->
         <div style="background: var(--entry); border: 1px solid var(--border); padding: 22px; border-radius: 8px; box-sizing: border-box;">
             <h4 style="margin: 0 0 16px 0; border-bottom: 2px solid #00BCD4; padding-bottom: 6px; font-size: 13px; text-transform: uppercase; color: var(--primary); font-weight: bold; letter-spacing: 0.5px;">💡 Recommended For You</h4>
             <ul style="padding: 0; margin: 0; list-style: none;">
-                <!-- DYNAMIC MATCHING: Extracts up to 5 posts belonging ONLY to the same tag category, excluding the active post -->
-                {{ $pageLink := .Permalink }}
-                {{ range first 5 (where (where site.RegularPages "Type" "posts") "Params.categories" "intersect" .Params.categories) }}
-                    {{ if ne .Permalink $pageLink }}
+                <!-- REPAIRED EXTRACTION LOOP: Targets latest 5 posts across the site as a fallback streams pool -->
+                {{ $currentLink := .Permalink }}
+                {{ $counter := 0 }}
+                {{ range (where site.RegularPages "Type" "posts") }}
+                    {{ if and (ne .Permalink $currentLink) (lt $counter 5) }}
+                    {{ $counter = add $counter 1 }}
                     <li style="margin-bottom: 12px; font-size: 13px; line-height: 1.4; border-bottom: 1px dashed var(--border); padding-bottom: 10px; box-sizing: border-box;">
                         <a href="{{ .Permalink }}" style="text-decoration: none; color: var(--primary); font-weight: 500;">{{ .Title }}</a>
                     </li>
                     {{ end }}
                 {{ else }}
-                <li style="font-size: 13px; color: var(--secondary); font-style: italic;">Compiling related content...</li>
+                <li style="font-size: 13px; color: var(--secondary); font-style: italic;">Compiling related content streams...</li>
                 {{ end }}
             </ul>
         </div>
