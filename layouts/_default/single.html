@@ -1,0 +1,129 @@
+{{ define "main" }}
+<!-- Master Article Page Grid Layer Container -->
+<div class="portal-master-grid" style="display: grid; grid-template-columns: 240px 1fr 300px; gap: 30px; margin: 20px auto 50px auto; align-items: start; width: 100%; box-sizing: border-box;">
+    
+    <!-- ================= COLUMN 1: LEFT SIDEBAR BANNER ADS ================= -->
+    <aside class="left-ad-rail" style="position: sticky; top: 20px; width: 100%; box-sizing: border-box;">
+        <div style="background: rgba(128,128,128,0.06); border: 2px dashed var(--border); padding: 35px 10px; text-align: center; border-radius: 8px; min-height: 600px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+            <span style="font-weight: bold; color: var(--secondary); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;">💻 SPONSORED BANNER</span>
+            <span style="font-size: 11px; color: var(--secondary); margin-top: 8px; opacity: 0.65; line-height: 1.4;">[Left Vertical Ad Rail Pillar]<br>Activates instantly upon AdSense verification approval</span>
+        </div>
+    </aside>
+
+    <!-- ================= COLUMN 2: CENTER ARTICLE CORE CONTENT ================= -->
+    <main class="center-content-feed" style="width: 100%; box-sizing: border-box;">
+        <article class="post-single" style="background: var(--entry); padding: 30px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.02); box-sizing: border-box;">
+            
+            <!-- Breadcrumbs Navigation Header -->
+            {{- if gap: 8px; }}
+            <div style="font-size: 13px; color: var(--secondary); margin-bottom: 15px; opacity: 0.8;">
+                <a href="/" style="color: inherit; text-decoration: none;">Home</a> &gt; Articles
+            </div>
+            {{- end }}
+
+            <!-- Main Article Title -->
+            <header class="post-header" style="margin-bottom: 25px;">
+                <h1 class="post-title" style="margin: 0 0 10px 0; font-size: 32px; line-height: 1.25; color: var(--primary); font-weight: 800; border: none; padding: 0;">
+                    {{ .Title }}
+                </h1>
+                <div style="font-size: 12px; color: var(--secondary); opacity: 0.7;">
+                    ⏱️ {{ .ReadingTime }} min read · Published on {{ .Date.Format "January 2, 2006" }}
+                </div>
+            </header>
+
+            <!-- Interactive Table of Contents Menu -->
+            {{- if (.Param "ShowToc") }}
+            <div style="background: var(--theme); border: 1px solid var(--border); border-radius: 6px; padding: 15px; margin-bottom: 30px;">
+                <details open>
+                    <summary style="font-weight: bold; cursor: pointer; color: var(--primary);">Table of Contents</summary>
+                    <div style="margin-top: 10px; font-size: 14px; line-height: 1.5;">
+                        {{ .TableOfContents }}
+                    </div>
+                </details>
+            </div>
+            {{- end }}
+
+            <!-- Native Article Body Output -->
+            <div class="post-content" style="line-height: 1.7; font-size: 16px; color: var(--primary);">
+                {{ .Content }}
+            </div>
+
+            <!-- Bottom Post Navigation Elements (Prev/Next Page Switches) -->
+            <footer class="post-footer" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border);">
+                {{- if .Site.Params.ShowShareButtons }}
+                <div style="margin-bottom: 25px;">
+                    {{- partial "share_icons.html" . }}
+                </div>
+                {{- end }}
+                
+                {{- if .PrevInSection }}
+                <div style="margin-bottom: 10px; font-size: 14px;">
+                    <strong>&laquo; Previous Article:</strong> <a href="{{ .PrevInSection.Permalink }}" style="color: var(--primary); text-decoration: none;">{{ .PrevInSection.Title }}</a>
+                </div>
+                {{- end }}
+                {{- if .NextInSection }}
+                <div style="font-size: 14px;">
+                    <strong>&raquo; Next Article:</strong> <a href="{{ .NextInSection.Permalink }}" style="color: var(--primary); text-decoration: none;">{{ .NextInSection.Title }}</a>
+                </div>
+                {{- end }}
+            </footer>
+
+        </article>
+    </main>
+
+    <!-- ================= COLUMN 3: RIGHT TRENDING & RELATED SIDEBARS ================= -->
+    <aside class="right-sidebar-rail" style="display: flex; flex-direction: column; gap: 25px; position: sticky; top: 20px; width: 100%; box-sizing: border-box;">
+        
+        <!-- Widget 1: Universal Hot Trending Stream -->
+        <div style="background: var(--entry); border: 1px solid var(--border); padding: 22px; border-radius: 8px; box-sizing: border-box;">
+            <h4 style="margin: 0 0 16px 0; border-bottom: 2px solid #FF5722; padding-bottom: 6px; font-size: 13px; text-transform: uppercase; color: var(--primary); font-weight: bold; letter-spacing: 0.5px;">🔥 Trending Topics</h4>
+            <ul style="padding: 0; margin: 0; list-style: none;">
+                {{ range first 4 (where site.RegularPages "Type" "posts") }}
+                <li style="margin-bottom: 12px; font-size: 13px; line-height: 1.4; border-bottom: 1px dashed var(--border); padding-bottom: 10px; box-sizing: border-box;">
+                    <a href="{{ .Permalink }}" style="text-decoration: none; color: var(--primary); font-weight: 500;">{{ .Title }}</a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+
+        <!-- Widget 2: Dynamic Category-Specific Contextual Recommendations -->
+        <div style="background: var(--entry); border: 1px solid var(--border); padding: 22px; border-radius: 8px; box-sizing: border-box;">
+            <h4 style="margin: 0 0 16px 0; border-bottom: 2px solid #00BCD4; padding-bottom: 6px; font-size: 13px; text-transform: uppercase; color: var(--primary); font-weight: bold; letter-spacing: 0.5px;">💡 Recommended For You</h4>
+            <ul style="padding: 0; margin: 0; list-style: none;">
+                <!-- DYNAMIC MATCHING: Extracts up to 5 posts belonging ONLY to the same tag category, excluding the active post -->
+                {{ $pageLink := .Permalink }}
+                {{ range first 5 (where (where site.RegularPages "Type" "posts") "Params.categories" "intersect" .Params.categories) }}
+                    {{ if ne .Permalink $pageLink }}
+                    <li style="margin-bottom: 12px; font-size: 13px; line-height: 1.4; border-bottom: 1px dashed var(--border); padding-bottom: 10px; box-sizing: border-box;">
+                        <a href="{{ .Permalink }}" style="text-decoration: none; color: var(--primary); font-weight: 500;">{{ .Title }}</a>
+                    </li>
+                    {{ end }}
+                {{ else }}
+                <li style="font-size: 13px; color: var(--secondary); font-style: italic;">Compiling related content...</li>
+                {{ end }}
+            </ul>
+        </div>
+
+        <!-- Widget 3: Lower Sidebar Secondary Income Box Placement -->
+        <div style="background: rgba(128,128,128,0.06); border: 2px dashed #ccc; padding: 25px 10px; text-align: center; border-radius: 8px; min-height: 280px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+            <span style="font-weight: bold; color: var(--secondary); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;">📢 NATIVE MID-RAIL AD</span>
+            <span style="font-size: 10px; color: var(--secondary); margin-top: 5px; opacity: 0.6; line-height: 1.3;">Square Content Ad Placeholder Unit</span>
+        </div>
+
+    </aside>
+
+</div>
+
+<!-- Responsive media breakpoint styles to safely manage tablets and smartphones -->
+<style>
+    @media screen and (max-width: 1024px) {
+        .portal-master-grid { grid-template-columns: 1fr 280px !important; gap: 20px !important; }
+        .left-ad-rail { display: none !important; }
+    }
+    @media screen and (max-width: 768px) {
+        .portal-master-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
+        .left-ad-rail { display: none !important; }
+        .right-sidebar-rail { position: static !important; }
+    }
+</style>
+{{ end }}
