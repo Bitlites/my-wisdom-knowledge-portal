@@ -2,6 +2,9 @@
 title: "Contact Us"
 layout: "single"
 summary: "Contact"
+searchHidden: true
+hidemeta: true
+ShowShareButtons: false
 ---
 
 We value open communication, reader feedback, and corporate transparency. Whether you are an academic researcher pointing out a data discrepancy, a daily reader with a content suggestion, or an advertising network entity seeking verification, feel free to reach out to us.

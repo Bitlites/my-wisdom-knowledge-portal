@@ -2,6 +2,8 @@
 title: "Privacy Policy"
 layout: "single"
 summary: "Privacy"
+searchHidden: true
+ShowShareButtons: false
 ---
 
 *Last Updated: July 2, 2026*

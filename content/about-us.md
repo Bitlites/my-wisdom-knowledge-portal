@@ -2,6 +2,9 @@
 title: "About Us"
 layout: "single"
 summary: "About"
+searchHidden: true
+hidemeta: true
+ShowShareButtons: false
 ---
 
 Welcome to our global informational broadcasting platform. We are an independent digital publication dedicated to delivering clear, objective, and well-researched static articles across multiple domains of general knowledge.

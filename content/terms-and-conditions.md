@@ -2,6 +2,8 @@
 title: "Terms and Conditions"
 layout: "single"
 summary: "Terms"
+searchHidden: true
+ShowShareButtons: false
 ---
 
 *Last Updated: July 2, 2026*

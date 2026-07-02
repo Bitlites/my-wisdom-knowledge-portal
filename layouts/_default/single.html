@@ -52,23 +52,28 @@
                 .art-content-sp h2, .art-content-sp h3, .art-content-sp h4 { margin-top: 35px !important; margin-bottom: 15px !important; display: block; width: 100%; }
             </style>
 
-            <!-- Bottom Post Navigation Elements (Prev/Next Page Switches) -->
+            <!-- Bottom Post Navigation Elements (Only displays on regular articles) -->
             <footer class="post-footer" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border);">
                 {{- if .Site.Params.ShowShareButtons }}
-                <div style="margin-bottom: 25px;">
-                    {{- partial "share_icons.html" . }}
-                </div>
+                    {{- if not (.Param "hidemeta") }}
+                    <div style="margin-bottom: 25px;">
+                        {{- partial "share_icons.html" . }}
+                    </div>
+                    {{- end }}
                 {{- end }}
                 
-                {{- if .PrevInSection }}
-                <div style="margin-bottom: 10px; font-size: 14px;">
-                    <strong>&laquo; Previous Article:</strong> <a href="{{ .PrevInSection.Permalink }}" style="color: var(--primary); text-decoration: none;">{{ .PrevInSection.Title }}</a>
-                </div>
-                {{- end }}
-                {{- if .NextInSection }}
-                <div style="font-size: 14px;">
-                    <strong>&raquo; Next Article:</strong> <a href="{{ .NextInSection.Permalink }}" style="color: var(--primary); text-decoration: none;">{{ .NextInSection.Title }}</a>
-                </div>
+                <!-- SAFETY CHECK: Block next/prev links if page hides its metadata info -->
+                {{- if not (.Param "hidemeta") }}
+                    {{- if .PrevInSection }}
+                    <div style="margin-bottom: 10px; font-size: 14px;">
+                        <strong>&laquo; Previous Article:</strong> <a href="{{ .PrevInSection.Permalink }}" style="color: var(--primary); text-decoration: none;">{{ .PrevInSection.Title }}</a>
+                    </div>
+                    {{- end }}
+                    {{- if .NextInSection }}
+                    <div style="font-size: 14px;">
+                        <strong>&raquo; Next Article:</strong> <a href="{{ .NextInSection.Permalink }}" style="color: var(--primary); text-decoration: none;">{{ .NextInSection.Title }}</a>
+                    </div>
+                    {{- end }}
                 {{- end }}
             </footer>
 
