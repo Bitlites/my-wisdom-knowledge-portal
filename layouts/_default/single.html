@@ -41,10 +41,16 @@
             </div>
             {{- end }}
 
-            <!-- Native Article Body Output -->
-            <div class="post-content" style="line-height: 1.7; font-size: 16px; color: var(--primary); margin-top: 20px;">
+            <!-- Native Article Body Output with Embedded Spacing Rules -->
+            <div class="post-content art-content-sp" style="line-height: 1.7; font-size: 16px; color: var(--primary); margin-top: 20px;">
                 {{ .Content }}
             </div>
+
+            <!-- CSS Rule Injection to Force Margin Spacing Under Every Paragraph and Heading -->
+            <style>
+                .art-content-sp p { margin-bottom: 24px !important; line-height: 1.7; }
+                .art-content-sp h2, .art-content-sp h3, .art-content-sp h4 { margin-top: 35px !important; margin-bottom: 15px !important; display: block; width: 100%; }
+            </style>
 
             <!-- Bottom Post Navigation Elements (Prev/Next Page Switches) -->
             <footer class="post-footer" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border);">
@@ -84,11 +90,10 @@
             </ul>
         </div>
 
-        <!-- Widget 2: Fixed Category Recommendations Section (Loads latest 5 articles) -->
+        <!-- Widget 2: Fixed Category Recommendations Section -->
         <div style="background: var(--entry); border: 1px solid var(--border); padding: 22px; border-radius: 8px; box-sizing: border-box;">
             <h4 style="margin: 0 0 16px 0; border-bottom: 2px solid #00BCD4; padding-bottom: 6px; font-size: 13px; text-transform: uppercase; color: var(--primary); font-weight: bold; letter-spacing: 0.5px;">💡 Recommended For You</h4>
             <ul style="padding: 0; margin: 0; list-style: none;">
-                <!-- REPAIRED EXTRACTION LOOP: Targets latest 5 posts across the site as a fallback streams pool -->
                 {{ $currentLink := .Permalink }}
                 {{ $counter := 0 }}
                 {{ range (where site.RegularPages "Type" "posts") }}
