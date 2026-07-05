@@ -1,62 +1,47 @@
-/* 1. Force the layout wrapper container to stick on scroll */
+/* 1. Fix Entire Header Container to Top on Scroll */
 .header {
     background: var(--theme);
-    position: -webkit-sticky !important; /* Safari layout engine fallback support */
+    position: -webkit-sticky !important; /* Safari fallback */
     position: sticky !important;
     top: 0 !important;
     z-index: 1000 !important;
     border-bottom: 1px solid var(--border) !important;
 }
 
-/* 2. Original Side-by-Side Flex Layout Row */
+/* 2. Fix Layout Grid & Align Items Side-by-Side */
 .header-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: calc(var(--nav-width) + var(--gap) * 2);
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 var(--gap);
-    height: var(--header-height);
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    max-width: calc(var(--nav-width) + var(--gap) * 2) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 var(--gap) !important;
+    height: var(--header-height) !important;
 }
 
-/* 3. Restores Name of Site layout spacing constraints on one line */
+/* 3. Keep Title & Switches Together On Left */
 .logo {
-    display: flex;
-    align-items: center;
-    white-space: nowrap !important; /* Forces your title "Global News Hub" to stay on one single line */
-    flex-shrink: 0 !important; /* Prevents text boxes from shrinking under narrow screens */
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    flex-shrink: 0 !important;
 }
 
 .logo a {
     font-size: 24px;
     font-weight: 700;
     line-height: var(--header-height);
-    display: flex;
-    align-items: center;
+    white-space: nowrap !important;
 }
 
-/* 4. Fixes categories and gap adjustments */
 .logo-switches {
-    display: flex;
-    align-items: center;
-    margin-inline-start: var(--gap);
+    display: flex !important;
+    align-items: center !important;
+    margin-inline-start: var(--gap) !important;
 }
 
-.menu {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    overflow-x: auto;
-    white-space: nowrap;
-}
-
-.menu li {
-    margin-inline-start: var(--gap); /* Puts the correct spacing back between navigation items */
-}
-
-/* 5. Clean layout defaults for theme toggle button */
 button#theme-toggle {
     font-size: 26px;
     padding: 2px;
@@ -71,4 +56,26 @@ button#theme-toggle {
 
 html:not(.dark) button#theme-toggle .sun {
     display: none;
+}
+
+/* 4. Fix Horizontal Scroller and Item Margins on Right */
+.menu {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: auto !important; /* Retains clean scrolling on mobile/tablet views */
+    white-space: nowrap !important; /* Prevents menu labels from snapping down */
+}
+
+/* Restores proper spacing inside the horizontal categories scroller */
+.menu li {
+    margin-inline-start: var(--gap) !important; 
+    display: inline-block !important;
+}
+
+.menu a {
+    display: block !important;
 }
