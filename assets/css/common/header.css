@@ -1,101 +1,109 @@
-/* ==========================================================================
-   1. FIXED LAYOUT STICKY BAR
-   ========================================================================== */
 .header {
-    background: var(--theme);
-    position: -webkit-sticky !important;
+    position: -webkit-sticky !important; /* Safari engine compatibility */
     position: sticky !important;
     top: 0 !important;
     z-index: 1000 !important;
-    border-bottom: 1px solid var(--border) !important;
+    background: var(--theme) !important; /* Forces the default light/dark color */
+    border-bottom: 1px solid var(--border) !important; /* Optional crisp separator line */
 }
-
-/* Master row layout grid container */
 .header-nav {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    max-width: calc(var(--nav-width) + var(--gap) * 2) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 0 var(--gap) !important;
-    height: var(--header-height) !important;
-    gap: 20px !important; /* Prevents logo and menu items from bumping edges */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: calc(var(--nav-width) + var(--gap) * 2);
+    margin: auto;
+    line-height: var(--header-height);
+    padding: 0 var(--gap);
+    column-gap: var(--gap);
 }
 
-/* ==========================================================================
-   2. LOGO AND HARD RESET (Keeps left side intact)
-   ========================================================================== */
+.header-nav a {
+    display: block;
+}
+
+.logo,
+.menu {
+    display: flex;
+}
+
 .logo {
-    display: flex !important;
-    align-items: center !important;
-    flex-wrap: nowrap !important;
-    flex-shrink: 0 !important; /* Forbids site title from collapsing */
+    align-items: center;
+    column-gap: 0.55rem;
+    flex-wrap: wrap;
 }
 
 .logo a {
     font-size: 24px;
     font-weight: 700;
-    line-height: var(--header-height);
-    white-space: nowrap !important;
+    display: flex;
+    align-items: center;
+    column-gap: 0.55rem;
+}
+
+.logo a img,
+.logo a svg {
+    pointer-events: none;
+    border-radius: 6px;
+}
+
+.theme-toggle {
+    padding: 0 0.4rem;
+}
+
+[data-theme="dark"] .moon {
+    display: none;
+}
+
+[data-theme="light"] .sun {
+    display: none;
 }
 
 .logo-switches {
-    display: flex !important;
-    align-items: center !important;
-    margin-inline-start: var(--gap) !important;
-    flex-shrink: 0 !important;
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: inherit;
+    min-height: stretch;
+    flex-wrap: inherit;
 }
 
-/* ==========================================================================
-   3. FIXED CATEGORIES SCROLLER ENGINE
-   ========================================================================== */
+.logo-switches>* {
+    min-height: inherit;
+    align-items: center;
+    display: inline-flex;
+}
+
+.nav-sep {
+    color: var(--secondary);
+}
+
+.lang-menu * {
+    display: inherit;
+    min-height: inherit;
+    align-items: inherit;
+}
+
+.lang-menu a {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0 0.4rem;
+    display: inline-flex
+}
+
 .menu {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    
-    /* This forces the overflow horizontal scroll mechanics across all devices */
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    white-space: nowrap !important; /* Prevents text elements from breaking onto two lines */
-    
-    /* Clean layout formatting rules */
-    flex-grow: 1 !important;
-    justify-content: flex-end !important;
-    
-    /* Hides clumsy browser scrollbars */
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-}
-
-.menu::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-}
-
-/* Fix link layouts and text formatting spacing sizes */
-.menu li {
-    margin-inline-start: var(--gap) !important;
-    display: inline-block !important;
-    flex-shrink: 0 !important; /* Ensures category names never compress horizontally */
+    list-style: none;
+    word-break: keep-all;
+    overflow-x: auto;
+    white-space: nowrap;
+    column-gap: var(--gap);
 }
 
 .menu a {
-    display: block !important;
-    white-space: nowrap !important; /* Guarantees words stay together as single layout items */
+    font-size: 16px;
 }
 
-/* Utility Theme Toggle rules */
-button#theme-toggle {
-    font-size: 26px;
-    padding: 2px;
-    background: none;
-    border: none;
-    cursor: pointer;
+.menu .active {
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+    text-decoration-thickness: 2px;
 }
-.dark button#theme-toggle .moon { display: none; }
-html:not(.dark) button#theme-toggle .sun { display: none; }
