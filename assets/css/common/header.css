@@ -1,109 +1,69 @@
+/* 1. Base Sticky Navigation Wrapper */
 .header {
-    position: -webkit-sticky !important; /* Safari engine compatibility */
+    background: var(--theme);
+    position: -webkit-sticky !important; /* Older Safari engine fallback */
     position: sticky !important;
     top: 0 !important;
     z-index: 1000 !important;
-    background: var(--theme) !important; /* Forces the default light/dark color */
-    border-bottom: 1px solid var(--border) !important; /* Optional crisp separator line */
+    border-bottom: 1px solid var(--border) !important;
 }
+
+/* 2. Retain Perfect Side-by-Side Flex Alignment */
 .header-nav {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
     max-width: calc(var(--nav-width) + var(--gap) * 2);
-    margin: auto;
-    line-height: var(--header-height);
+    margin-left: auto;
+    margin-right: auto;
     padding: 0 var(--gap);
-    column-gap: var(--gap);
+    height: var(--header-height);
 }
 
-.header-nav a {
-    display: block;
-}
-
-.logo,
+/* 3. Re-apply Original PaperMod List Spacing */
 .menu {
     display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.menu li {
+    margin-inline-start: var(--gap); /* Restores original gap sizes between categories */
 }
 
 .logo {
+    display: flex;
     align-items: center;
-    column-gap: 0.55rem;
-    flex-wrap: wrap;
 }
 
 .logo a {
     font-size: 24px;
     font-weight: 700;
+    line-height: var(--header-height);
+}
+
+/* 4. Fix Theme Button Alignment */
+.logo-switches {
     display: flex;
     align-items: center;
-    column-gap: 0.55rem;
+    margin-inline-start: var(--gap);
 }
 
-.logo a img,
-.logo a svg {
-    pointer-events: none;
-    border-radius: 6px;
+button#theme-toggle {
+    font-size: 26px;
+    padding: 2px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-.theme-toggle {
-    padding: 0 0.4rem;
-}
-
-[data-theme="dark"] .moon {
+.dark button#theme-toggle .moon {
     display: none;
 }
 
-[data-theme="light"] .sun {
+html:not(.dark) button#theme-toggle .sun {
     display: none;
-}
-
-.logo-switches {
-    display: inline-flex;
-    gap: 0.4rem;
-    align-items: inherit;
-    min-height: stretch;
-    flex-wrap: inherit;
-}
-
-.logo-switches>* {
-    min-height: inherit;
-    align-items: center;
-    display: inline-flex;
-}
-
-.nav-sep {
-    color: var(--secondary);
-}
-
-.lang-menu * {
-    display: inherit;
-    min-height: inherit;
-    align-items: inherit;
-}
-
-.lang-menu a {
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 0 0.4rem;
-    display: inline-flex
-}
-
-.menu {
-    list-style: none;
-    word-break: keep-all;
-    overflow-x: auto;
-    white-space: nowrap;
-    column-gap: var(--gap);
-}
-
-.menu a {
-    font-size: 16px;
-}
-
-.menu .active {
-    font-weight: 500;
-    text-decoration: underline;
-    text-underline-offset: 0.3rem;
-    text-decoration-thickness: 2px;
 }
