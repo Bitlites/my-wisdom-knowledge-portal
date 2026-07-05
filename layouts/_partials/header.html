@@ -1,31 +1,40 @@
 <style>
-    /* 1. Global structural un-clipping */
+    /* 1. Global Reset & Overrides */
     html, body {
+        margin: 0 !important;
+        padding: 0 !important;
         overflow-x: hidden !important;
-        scroll-padding-top: 80px !important; /* Matches header height for anchor links */
     }
 
-    /* Fix spacing layout shift due to fixed header positioning */
-    body {
-        padding-top: 75px !important; /* Pushes content down so header doesn't cover top text */
+    /* Push down the primary main content wrapper so it never gets clipped under the menu bar */
+    body, main, .main, #main {
+        padding-top: 80px !important; 
+        position: relative !important;
     }
 
-    /* 2. Lock Header to Top */
+    /* 2. Absolute Structural Lock on Header */
     header.header {
         position: fixed !important;
         top: 0 !important;
         left: 0 !important;
-        width: 100% !important;
-        background: var(--theme) !important; /* Dynamic PaperMod light/dark engine compatibility */
-        z-index: 99999 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        height: 60px !important;
+        background: var(--theme) !important; /* Forces PaperMod dynamic coloring theme */
+        z-index: 999999 !important; /* Keeps header strictly on top of text and image cards */
+        display: block !important;
         border-bottom: 1px solid var(--border) !important;
     }
 
-    /* 3. Re-center content */
+    /* 3. Force Layout Inner Centering */
     .header-nav {
         max-width: 1200px !important;
         margin: 0 auto !important;
         padding: 0 24px !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
     }
 </style>
 
