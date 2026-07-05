@@ -1,39 +1,109 @@
-/* 1. Freeze Header to Top with Original Layout Flow */
 .header {
-    position: -webkit-sticky !important; /* Safari layout engine support */
+    position: -webkit-sticky !important; /* Safari engine compatibility */
     position: sticky !important;
     top: 0 !important;
     z-index: 1000 !important;
-    background: var(--theme) !important; /* Automatically tracks light / dark theme */
-    border-bottom: 1px solid var(--border) !important; /* Clean separator line */
+    background: var(--theme) !important; /* Forces the default light/dark color */
+    border-bottom: 1px solid var(--border) !important; /* Optional crisp separator line */
 }
-
-/* 2. Re-enforce Single Line Layout Alignment */
 .header-nav {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    flex-wrap: nowrap !important; /* Forces Logo and Menu to stay on one single line */
-    max-width: calc(var(--nav-width) + var(--gap) * 2) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 0 var(--gap) !important;
-    height: var(--header-height) !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: calc(var(--nav-width) + var(--gap) * 2);
+    margin: auto;
+    line-height: var(--header-height);
+    padding: 0 var(--gap);
+    column-gap: var(--gap);
 }
 
-/* 3. Original PaperMod Menu Flex Rules */
+.header-nav a {
+    display: block;
+}
+
+.logo,
 .menu {
-    display: flex !important;
-    align-items: center !important;
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow-x: auto !important;
-    white-space: nowrap !important;
+    display: flex;
 }
 
 .logo {
-    display: flex !important;
-    align-items: center !important;
-    flex-wrap: nowrap !important;
+    align-items: center;
+    column-gap: 0.55rem;
+    flex-wrap: wrap;
+}
+
+.logo a {
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    column-gap: 0.55rem;
+}
+
+.logo a img,
+.logo a svg {
+    pointer-events: none;
+    border-radius: 6px;
+}
+
+.theme-toggle {
+    padding: 0 0.4rem;
+}
+
+[data-theme="dark"] .moon {
+    display: none;
+}
+
+[data-theme="light"] .sun {
+    display: none;
+}
+
+.logo-switches {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: inherit;
+    min-height: stretch;
+    flex-wrap: inherit;
+}
+
+.logo-switches>* {
+    min-height: inherit;
+    align-items: center;
+    display: inline-flex;
+}
+
+.nav-sep {
+    color: var(--secondary);
+}
+
+.lang-menu * {
+    display: inherit;
+    min-height: inherit;
+    align-items: inherit;
+}
+
+.lang-menu a {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0 0.4rem;
+    display: inline-flex
+}
+
+.menu {
+    list-style: none;
+    word-break: keep-all;
+    overflow-x: auto;
+    white-space: nowrap;
+    column-gap: var(--gap);
+}
+
+.menu a {
+    font-size: 16px;
+}
+
+.menu .active {
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+    text-decoration-thickness: 2px;
 }
