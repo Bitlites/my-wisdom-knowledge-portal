@@ -1,3 +1,11 @@
+.header {
+    position: -webkit-sticky !important; /* Safari engine compatibility */
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    background: var(--theme) !important; /* Forces the default light/dark color */
+    border-bottom: 1px solid var(--border) !important; /* Optional crisp separator line */
+}
 .header-nav {
     display: flex;
     flex-wrap: wrap;
