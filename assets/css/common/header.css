@@ -1,52 +1,83 @@
 /* ==========================================================================
-   1. FIXED HEADER CONFIGURATION (Stays permanently at top on scroll)
+   1. FIXED POSITION ON SCROLL
    ========================================================================== */
 .header {
     background: var(--theme);
-    position: -webkit-sticky !important; /* Safari engine compatibility */
+    position: -webkit-sticky !important; /* Safari support */
     position: sticky !important;
     top: 0 !important;
     z-index: 1000 !important;
     border-bottom: 1px solid var(--border) !important;
 }
 
-/* Base structural row alignment */
+/* ==========================================================================
+   2. ORIGINAL THEME STRUCTURE (Restores single line, spaces, and fonts)
+   ========================================================================== */
 .header-nav {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    max-width: calc(var(--nav-width) + var(--gap) * 2) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 0 var(--gap) !important;
-    height: var(--header-height) !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: calc(var(--nav-width) + var(--gap) * 2);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--gap);
+    height: var(--header-height);
 }
 
-/* ==========================================================================
-   2. LOGO AND THEME TOGGLE ENGINE (Never wraps, never shrinks)
-   ========================================================================== */
 .logo {
-    display: flex !important;
-    align-items: center !important;
-    flex-wrap: nowrap !important;
-    flex-shrink: 0 !important; /* Forces site title to stay full size */
+    display: flex;
+    align-items: center;
+    white-space: nowrap !important; /* Keeps Global News Hub on one line */
 }
 
 .logo a {
     font-size: 24px;
     font-weight: 700;
     line-height: var(--header-height);
-    white-space: nowrap !important; /* Keeps "Global News Hub" strictly on one line */
 }
 
 .logo-switches {
-    display: flex !important;
-    align-items: center !important;
-    margin-inline-start: var(--gap) !important;
-    flex-shrink: 0 !important;
+    display: flex;
+    align-items: center;
+    margin-inline-start: var(--gap);
 }
 
+.menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    margin-inline-start: var(--gap); /* Restores original menu link spacing */
+}
+
+/* ==========================================================================
+   3. RESPONSIVE OVERFLOW ENGINE
+   ========================================================================== */
+
+/* Desktop & Laptop (No scrolling, items fit comfortably) */
+@media screen and (min-width: 1024px) {
+    .menu {
+        overflow: visible !important;
+        white-space: normal !important;
+    }
+}
+
+/* Tablet & Mobile (Enables clean side-swiping if links overflow) */
+@media screen and (max-width: 1023px) {
+    .menu {
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        scrollbar-width: none; /* Hides ugly scrollbars on Firefox */
+    }
+    .menu::-webkit-scrollbar {
+        display: none; /* Hides ugly scrollbars on Chrome/Safari */
+    }
+}
+
+/* Theme toggle utility buttons */
 button#theme-toggle {
     font-size: 26px;
     padding: 2px;
@@ -57,57 +88,3 @@ button#theme-toggle {
 
 .dark button#theme-toggle .moon { display: none; }
 html:not(.dark) button#theme-toggle .sun { display: none; }
-
-/* ==========================================================================
-   3. RESPONSIVE MEDIA QUERIES FOR OVERFLOW BEHAVIOR
-   ========================================================================== */
-
-/* --- DEVICE VARIANT A: DESKTOP CONFIGURATION (Screens 900px and up) --- */
-@media screen and (min-width: 900px) {
-    .menu {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        list-style: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow: visible !important; /* No scrolling behavior needed on big screens */
-        white-space: normal !important;
-    }
-    
-    .menu li {
-        margin-inline-start: var(--gap) !important;
-        display: block !important;
-    }
-}
-
-/* --- DEVICE VARIANT B: MOBILE & TABLET SWIPER (Screens under 900px) --- */
-@media screen and (max-width: 899px) {
-    .menu {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        list-style: none !important;
-        margin: 0 0 0 var(--gap) !important;
-        padding: 0 !important;
-        
-        /* Smooth, native finger swipe row horizontal scroll mechanics */
-        overflow-x: auto !important; 
-        overflow-y: hidden !important;
-        white-space: nowrap !important; 
-        
-        /* Hides unsightly bulky layout scrollbars on mobile browsers */
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
-    }
-    
-    .menu::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera */
-    }
-    
-    .menu li {
-        margin-inline-start: calc(var(--gap) / 1.5) !important;
-        margin-inline-end: calc(var(--nav-width) * 0.02) !important;
-        display: inline-block !important;
-    }
-}
