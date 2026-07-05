@@ -1,83 +1,95 @@
 /* ==========================================================================
-   1. FIXED POSITION ON SCROLL
+   1. FIXED LAYOUT STICKY BAR
    ========================================================================== */
 .header {
     background: var(--theme);
-    position: -webkit-sticky !important; /* Safari support */
+    position: -webkit-sticky !important;
     position: sticky !important;
     top: 0 !important;
     z-index: 1000 !important;
     border-bottom: 1px solid var(--border) !important;
 }
 
-/* ==========================================================================
-   2. ORIGINAL THEME STRUCTURE (Restores single line, spaces, and fonts)
-   ========================================================================== */
+/* Master row layout grid container */
 .header-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: calc(var(--nav-width) + var(--gap) * 2);
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 var(--gap);
-    height: var(--header-height);
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    max-width: calc(var(--nav-width) + var(--gap) * 2) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 var(--gap) !important;
+    height: var(--header-height) !important;
+    gap: 20px !important; /* Prevents logo and menu items from bumping edges */
 }
 
+/* ==========================================================================
+   2. LOGO AND HARD RESET (Keeps left side intact)
+   ========================================================================== */
 .logo {
-    display: flex;
-    align-items: center;
-    white-space: nowrap !important; /* Keeps Global News Hub on one line */
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    flex-shrink: 0 !important; /* Forbids site title from collapsing */
 }
 
 .logo a {
     font-size: 24px;
     font-weight: 700;
     line-height: var(--header-height);
+    white-space: nowrap !important;
 }
 
 .logo-switches {
-    display: flex;
-    align-items: center;
-    margin-inline-start: var(--gap);
-}
-
-.menu {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.menu li {
-    margin-inline-start: var(--gap); /* Restores original menu link spacing */
+    display: flex !important;
+    align-items: center !important;
+    margin-inline-start: var(--gap) !important;
+    flex-shrink: 0 !important;
 }
 
 /* ==========================================================================
-   3. RESPONSIVE OVERFLOW ENGINE
+   3. FIXED CATEGORIES SCROLLER ENGINE
    ========================================================================== */
-
-/* Desktop & Laptop (No scrolling, items fit comfortably) */
-@media screen and (min-width: 1024px) {
-    .menu {
-        overflow: visible !important;
-        white-space: normal !important;
-    }
+.menu {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    
+    /* This forces the overflow horizontal scroll mechanics across all devices */
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important; /* Prevents text elements from breaking onto two lines */
+    
+    /* Clean layout formatting rules */
+    flex-grow: 1 !important;
+    justify-content: flex-end !important;
+    
+    /* Hides clumsy browser scrollbars */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
 }
 
-/* Tablet & Mobile (Enables clean side-swiping if links overflow) */
-@media screen and (max-width: 1023px) {
-    .menu {
-        overflow-x: auto !important;
-        white-space: nowrap !important;
-        scrollbar-width: none; /* Hides ugly scrollbars on Firefox */
-    }
-    .menu::-webkit-scrollbar {
-        display: none; /* Hides ugly scrollbars on Chrome/Safari */
-    }
+.menu::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
-/* Theme toggle utility buttons */
+/* Fix link layouts and text formatting spacing sizes */
+.menu li {
+    margin-inline-start: var(--gap) !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important; /* Ensures category names never compress horizontally */
+}
+
+.menu a {
+    display: block !important;
+    white-space: nowrap !important; /* Guarantees words stay together as single layout items */
+}
+
+/* Utility Theme Toggle rules */
 button#theme-toggle {
     font-size: 26px;
     padding: 2px;
@@ -85,6 +97,5 @@ button#theme-toggle {
     border: none;
     cursor: pointer;
 }
-
 .dark button#theme-toggle .moon { display: none; }
 html:not(.dark) button#theme-toggle .sun { display: none; }
